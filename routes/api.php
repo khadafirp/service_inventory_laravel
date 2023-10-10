@@ -27,7 +27,7 @@ Route::post('/daftar', [PenggunaController::class, 'create']);
 Route::post('/masuk', [PenggunaController::class, 'login']);
 Route::post('/edit-akun', [PenggunaController::class, 'edit']);
 Route::delete('/hapus-akun', [PenggunaController::class, 'destroy']);
-Route::get('/download', [PenggunaController::class, 'getdownload']);
+Route::get('/download/{filename}', [PenggunaController::class, 'getdownload']);
 
 Route::get("/kategori-barang", [KategoriBarangController::class, 'index']);
 Route::post('/filter-kategori', [KategoriBarangController::class, 'show']);

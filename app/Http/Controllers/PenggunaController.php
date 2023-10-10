@@ -159,15 +159,8 @@ class PenggunaController extends Controller
             ->with('success','File has been successfully uploaded.');
     }
 
-    public function getdownload()
+    public function getdownload(Request $request)
     {
-        //PDF file is stored under project/public/download/info.pdf
-        $file= public_path(). "/uploads\/";
-
-        $headers = array(
-                'Content-Type: application/pdf',
-                );
-
-        return response()->download(public_path('uploads/1696911663-final_format-surat-lamaran.pdf'));
+        return response()->download(public_path('uploads/'.$request->route('filename')));
     }
 }
