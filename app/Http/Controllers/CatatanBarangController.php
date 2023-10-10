@@ -36,14 +36,6 @@ class CatatanBarangController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(CatatanBarang $catatanBarang, Request $request)
@@ -81,14 +73,6 @@ class CatatanBarangController extends Controller
         return response()->json([
             'data' => $data
         ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, CatatanBarang $catatanBarang)
-    {
-        //
     }
 
     /**
