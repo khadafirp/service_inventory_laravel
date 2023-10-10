@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/all-users', [PenggunaController::class, 'index']);
 Route::post('/daftar', [PenggunaController::class, 'create']);
 Route::post('/masuk', [PenggunaController::class, 'login']);
+Route::post('/profil', [PenggunaController::class, 'show']);
 Route::post('/edit-akun', [PenggunaController::class, 'edit']);
 Route::delete('/hapus-akun', [PenggunaController::class, 'destroy']);
 Route::get('/download/{filename}', [PenggunaController::class, 'getdownload']);

@@ -53,9 +53,13 @@ class PenggunaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pengguna $pengguna)
+    public function show(Pengguna $pengguna, Request $request)
     {
-        //
+        $data = $pengguna->where('id_pengguna', $request->id_pengguna)->first();
+
+        return response()->json([
+            'data' => $data
+        ]);
     }
 
     /**
@@ -65,13 +69,11 @@ class PenggunaController extends Controller
     {
         $data = $pengguna->where([
             "id_pengguna" => $request->id_pengguna
-        ])->first();
+        ]);
 
         if($data != null){
 
             $data->delete();
-
-            $uuid = Uuid::uuid4()->toString();
 
             $request->validate([
                 'path_file' => 'required|mimes:pdf,xlx,csv|max:2048',
@@ -82,7 +84,7 @@ class PenggunaController extends Controller
             $request->path_file->move(public_path('uploads'), $fileName);
     
 
-            $pengguna->id_pengguna = $uuid;
+            $pengguna->id_pengguna = $request->id_pengguna;
             $pengguna->username = $request->username;
             $pengguna->password = $request->password;
             $pengguna->nama_lengkap = $request->nama_lengkap;
