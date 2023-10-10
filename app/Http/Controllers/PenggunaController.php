@@ -29,22 +29,14 @@ class PenggunaController extends Controller
     {
         $uuid = Uuid::uuid4()->toString();
 
-        $request->validate([
-            'path_file' => 'required|mimes:pdf,xlx,csv|max:2048',
-        ]);
-  
-        $fileName = time().'-'.$request->path_file->getClientOriginalName();  
-   
-        $request->path_file->move(public_path('uploads'), $fileName);
-
         $pengguna->id_pengguna = $uuid;
         $pengguna->username = $request->username;
         $pengguna->password = $request->password;
         $pengguna->nama_lengkap = $request->nama_lengkap;
         $pengguna->tanggal_lahir = "";
-        $pengguna->alamat = $request->alamat;
-        $pengguna->path_file = $fileName;
-        $pengguna->nama_file = $fileName;
+        $pengguna->alamat = "";
+        $pengguna->path_file = "";
+        $pengguna->nama_file = "";
         $pengguna->save();
 
         return $pengguna;
@@ -69,9 +61,39 @@ class PenggunaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pengguna $pengguna)
+    public function edit(Pengguna $pengguna, Request $request)
     {
-        //
+        $data = $pengguna->where([
+            "id_pengguna" => $request->id_pengguna
+        ])->first();
+
+        if($data != null){
+
+            $data->delete();
+
+            $uuid = Uuid::uuid4()->toString();
+
+            $request->validate([
+                'path_file' => 'required|mimes:pdf,xlx,csv|max:2048',
+            ]);
+      
+            $fileName = time().'-'.$request->path_file->getClientOriginalName();  
+       
+            $request->path_file->move(public_path('uploads'), $fileName);
+    
+
+            $pengguna->id_pengguna = $uuid;
+            $pengguna->username = $request->username;
+            $pengguna->password = $request->password;
+            $pengguna->nama_lengkap = $request->nama_lengkap;
+            $pengguna->tanggal_lahir = "";
+            $pengguna->alamat = $request->alamat;
+            $pengguna->path_file = $fileName;
+            $pengguna->nama_file = $fileName;
+            $pengguna->save();
+
+            return $pengguna;
+        }
     }
 
     /**
